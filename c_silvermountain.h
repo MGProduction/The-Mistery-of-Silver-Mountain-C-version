@@ -1,9 +1,9 @@
 #if !defined(_C_SILVERMOUNTAIN_H_)
 #define _C_SILVERMOUNTAIN_H_
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 typedef void(*VERBFUNCT)();
-// -----------------------------------------------------
+// -------------------------------------------------------
 
 #define SCREEN_WIDTH 40
 #define OBJCOUNT     88
@@ -12,7 +12,7 @@ typedef void(*VERBFUNCT)();
 #define ROOMCOUNT    80
 #define g            28
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 // FLAGS
 #define FLAG_BOOTSON 29
 #define FLAG_SHEETONBOAT 30
@@ -93,7 +93,7 @@ void c_FUNCT_PRESSENTER();
 
 void draw_MSG();
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 
 // VERBS
 #define VERB_NORTH  1
@@ -154,7 +154,7 @@ void draw_MSG();
 #define VERB_GATHER   56
 #define VERB_REFLECT   57
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 
 // OBJECTS
 #define OBJ_STATUS_VISIBLE 0
@@ -249,7 +249,7 @@ void draw_MSG();
 #define OBJ_OLD_KILN 87
 #define OBJ_MOUNTIAN_HUT 88
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 
 // ROOMS
 #define ROOM_INVENTORY 0
@@ -335,6 +335,6 @@ void draw_MSG();
 #define ROOM_WHITE_COTTAGE 80
 #define ROOM_NOWHERE 81
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 
 #endif

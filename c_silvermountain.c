@@ -1,30 +1,41 @@
-// -----------------------------------------------------
-// This is the C "translation" of 1984's The Mystery of Silver Mountain BASIC code by Chris Oxlade and Judy Tatchell for Usborne Publishing
+// -------------------------------------------------------
+// This is a C "translation" of The Mystery of Silver 
+// Mountain (1984), originally written in BASIC by Chris 
+// Oxlade and Judy Tatchell for Usborne Publishing.
 //
-// This translation is not just a BASIC to C rewrite but it adds "readability" to the original code "decripting" its obfuscation (done for space saving and to avoid spoilers to people typing code to  their 8bits machines) to ease  further translations in other languages or systems
+// This version goes beyond a straightforward BASIC-to-C 
+// rewrite: it aims to enhance readability by "decrypting" 
+// the original code, which was intentionally 
+// obfuscated—both to save space and to avoid revealing 
+// spoilers to users typing it into their 8-bit machines. 
+// The goal is to make the code easier to understand and 
+// more accessible for future translations into other 
+// languages or platforms.
 //
-// This version is anyway as faithful as possible to the original code for everything that's adventure related (no code improvements apart from goto avoiding)
+// That said, this version remains as faithful as possible 
+// to the original game logic and structure.No changes have 
+// been made to the adventure content itself, except for 
+// avoiding the use of GOTO statements in favor of more 
+// structured code.
 //
-// -----------------------------------------------------
-//
-// by Marco Giorgini (@marcogiorgini)
-//
-// -----------------------------------------------------
+// -------------------------------------------------------
+// Marco Giorgini (2025)
+// -------------------------------------------------------
 
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 // DEFINES
-// -----------------------------------------------------
+// -------------------------------------------------------
 #include "c_silvermountain.h"
-// -----------------------------------------------------
+// -------------------------------------------------------
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 // GAME RESOURCES
-// -----------------------------------------------------
+// -------------------------------------------------------
 char XX[6][4 + 1] = {
   "IN",  "NEAR",  "BY",  "ON",  "",  "AT"
 };
@@ -87,24 +98,24 @@ int ORIG_OBJLOC[] = {
 int ORIG_HIDDENSTATUS[] = {
   1,  2,  3,  4,  5,  9,  12,  13,  16,  17,  20,  21,  22
 };
-// -----------------------------------------------------
+// -------------------------------------------------------
 // GAME DATA VAR
-// -----------------------------------------------------
+// -------------------------------------------------------
 int  OBJLOC[g + 1];
 char EXITS[ROOMCOUNT + 1][5];
 int  FLAGS[70];
 char MAZEPATH[2][8 + 1];
-// -----------------------------------------------------
+// -------------------------------------------------------
 // GAME GLOBAL VAR
-// -----------------------------------------------------
+// -------------------------------------------------------
 int  ROOMID, VERBID, DIRID, OBJID;
 char szMSG[256];
 char szTT[64],szVV[64];
-// -----------------------------------------------------
+// -------------------------------------------------------
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 // SCREEN I/O functions
-// -----------------------------------------------------
+// -------------------------------------------------------
 void PRINT(const char * msg)
 {
  strcpy(szMSG, msg);
@@ -180,12 +191,12 @@ void draw_MSG() {
   printf(szMSG + pi);
  printf("\n");
 }
-// -----------------------------------------------------
+// -------------------------------------------------------
 
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 // FILE I/O functions
-// -----------------------------------------------------
+// -------------------------------------------------------
 int game_LOAD() {
  FILE*f;
  char name[256];
@@ -228,11 +239,11 @@ int game_SAVE()
  else
   return 0;
 }
-// -----------------------------------------------------
+// -------------------------------------------------------
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 //
-// -----------------------------------------------------
+// -------------------------------------------------------
 
 void game_NEW() {
  int i;
@@ -459,10 +470,10 @@ int game_GETCOMMAND()
  return 0;
 }
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 // "Translation" of the original
 // BASIC code
-// -----------------------------------------------------
+// -------------------------------------------------------
 
 void c_FUNCT_NULL(){
 }
@@ -1355,9 +1366,9 @@ void c_FUNCT_INTOMAZE() {
  }
 }
 
-// -----------------------------------------------------
+// -------------------------------------------------------
 // main()
-// -----------------------------------------------------
+// -------------------------------------------------------
 
 int main(int argc, const char * argv[]) {
  game_START();
@@ -1379,4 +1390,4 @@ int main(int argc, const char * argv[]) {
  return 1;
 }
 
-// -----------------------------------------------------
+// -------------------------------------------------------
