@@ -538,7 +538,7 @@ void c_FUNCT_GOTO() {
   strcpy(szMSG, "A PILE OF RUBBLE BLOCKS YOUR PATH");
   return;
  }
- if (ROOMID == ROOM_6FROZEN_POND && OBJLOC[OBJ_PLANKS] != ROOMID) {
+ if (ROOMID == ROOM_FROZEN_POND && OBJLOC[OBJ_PLANKS] != ROOMID) {
   strcpy(szMSG, "THE ICE IS BREAKING!");
   return;
  }
@@ -1114,7 +1114,7 @@ void c_FUNCT_EMPTY() {
 }
 
 void c_FUNCT_ENTER() {
- if (((ROOMID == ROOM_55OUTSIDE_A_WINDMILL) && (OBJID == OBJ_WINDMILL))) {
+ if (((ROOMID == ROOM_OUTSIDE_A_WINDMILL) && (OBJID == OBJ_WINDMILL))) {
   VERBID = VERB_EAST;
   c_FUNCT_GOTO();
   return;
