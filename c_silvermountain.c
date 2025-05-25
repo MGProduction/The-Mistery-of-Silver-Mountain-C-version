@@ -23,7 +23,6 @@
 // -------------------------------------------------------
 
 #include <stdio.h>
-#include <conio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -116,6 +115,32 @@ char szTT[64],szVV[64];
 // -------------------------------------------------------
 // SCREEN I/O functions
 // -------------------------------------------------------
+
+char*c_gets(char*_Buffer, int size)
+{
+ int len;
+ *_Buffer = 0;
+ fgets(_Buffer, size, stdin);
+ len = (int)strlen(_Buffer);
+ if(len>0)
+  while (len--)
+   if ((_Buffer[len] == '\r') || (_Buffer[len] == '\n'))
+    _Buffer[len] = 0;
+   else
+    break;
+ return _Buffer;
+}
+char*c_strupr(char*str)
+{
+ while (*str)
+ {
+  if ((*str >= 'a') && (*str <= 'z'))
+   *str = 'A' + (*str - 'a');
+  str++;
+ }
+ return str;
+}
+
 void PRINT(const char * msg)
 {
  strcpy(szMSG, msg);
@@ -124,8 +149,8 @@ void PRINT(const char * msg)
 
 char INPUTCH() {
  char cmd[64],ch;
- gets_s(cmd, sizeof(cmd));
- _strupr(cmd);
+ c_gets(cmd, sizeof(cmd));
+ c_strupr(cmd);
  ch = cmd[0];
  return ch;
 }
@@ -134,8 +159,8 @@ int INPUTNUM() {
  while (1)
  {
   char cmd[64], ch;
-  gets_s(cmd, sizeof(cmd));
-  _strupr(cmd);
+  c_gets(cmd, sizeof(cmd));
+  c_strupr(cmd);
   ch = cmd[0];
   if ((ch >= '0') && (ch <= '9'))
    return ch - '0';
@@ -153,7 +178,11 @@ void draw_SEPARATOR() {
 void draw_SCREEN() {
  int i, len;
  char msg[40];
+#if defined(WIN32)
  system("cls");
+#else
+ system("clear");
+#endif
  printf("\n");
  strcpy(msg, "MYSTERY OF SILVER");
  len = (int)strlen(msg);
@@ -201,7 +230,7 @@ int game_LOAD() {
  FILE*f;
  char name[256];
  printf("\nFILE NAME: ");
- gets_s(name, sizeof(name));
+ c_gets(name, sizeof(name));
  f = fopen(name, "rb");
  if (f)
  {
@@ -223,7 +252,7 @@ int game_SAVE()
  FILE*f;
  char name[256];
  printf("\nFILE NAME: ");
- gets_s(name, sizeof(name));
+ c_gets(name, sizeof(name));
  f = fopen(name, "wb");
  if (f)
  {
@@ -374,10 +403,10 @@ void game_FAILED()
 
 int game_GETCOMMAND()
 {
- char cmd[256];
+ char cmd[128];
  strcpy(szMSG, "PARDON?");
- gets_s(cmd, sizeof(cmd));
- _strupr(cmd);
+ c_gets(cmd, sizeof(cmd));
+ c_strupr(cmd);
  if ((strcmp(cmd, "SAVE") == 0) || (strcmp(cmd, "SAVE GAME") == 0))
   game_SAVE();
  else
