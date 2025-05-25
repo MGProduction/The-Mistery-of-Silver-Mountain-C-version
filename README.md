@@ -29,5 +29,9 @@ All credit must go to the authors: Chris Oxlade and Judy Tatchell, and copyright
 
 I'm working on a translation (adding graphics and some extra features) of this great adventure game in StoryTllr, and I needed a way to ensure that I don't miss some of the original features. Working MORE on the original code was then *mandatory*.
 
+## What?
+
+The main difference between readable and unreadable code lies in the use of named constants instead of raw numbers, and in choosing clear, self-explanatory names for variables and functions. So, my work here was fairly straightforward. In this particular case, the original code also used a simple encryption algorithm to obscure some of the in-game strings. I’ve decoded those strings so that everything is now fully understandable.
+
 ## References
 I've decided to work on a C translation of the original source code after having seen the great work done by **Ben Holland** (https://github.com/fivegreenapples/go-mountain/tree/main) who did a **Golang** translation. I've worked with his code for a while (deobfuscating it) and I thought it was interesting doing the work of **C** code instead.
