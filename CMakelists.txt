@@ -7,6 +7,11 @@ set(SOURCES c_silvermountain.c)  # <-- Change 'c_silvermountain.c' to your actua
 # Create the executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+# MSVC-specific define to disable secure warnings
+if (MSVC)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE _CRT_SECURE_NO_WARNINGS)
+endif()
+
 # Platform-specific options
 if(WIN32)
     message(STATUS "Configuring for Windows")
