@@ -102,7 +102,7 @@ int ORIG_HIDDENSTATUS[] = {
 // -------------------------------------------------------
 int  OBJLOC[g + 1];
 char EXITS[ROOMCOUNT + 1][5];
-int  FLAGS[70];
+int  FLAGS[70+1];
 char MAZEPATH[2][8 + 1];
 // -------------------------------------------------------
 // GAME GLOBAL VAR
@@ -284,13 +284,13 @@ void game_NEW() {
  memset(FLAGS, 0, sizeof(FLAGS));
  for (i = 0; i < sizeof(ORIG_HIDDENSTATUS) / sizeof(ORIG_HIDDENSTATUS[0]); i++)
   FLAGS[ORIG_HIDDENSTATUS[i]] = OBJ_STATUS_HIDDEN;
- FLAGS[41] = 1 + (rand() % 900) + 100;
- FLAGS[42] = 1 + (rand() % 3) + 2;
+ FLAGS[FLAG_OGBANSAFECODE] = 1 + (rand() % 900) + 100;
+ FLAGS[FLAG_RINGNUMBER] = 1 + (rand() % 3) + 2;
  FLAGS[FLAG_COINSCOUNT] = 4;
- FLAGS[57] = 68;
- FLAGS[58] = 54;
- FLAGS[59] = 15;
- FLAGS[52] = 1 + (rand() % 3);
+ FLAGS[57] = ROOM_ANCIENT_STONE_CIRCLE;
+ FLAGS[58] = ROOM_HIGH_PINNACLE;
+ FLAGS[59] = ROOM_HIGHWALLED_GARDEN;
+ FLAGS[52] = (rand() % 3);
  ROOMID = ROOM_CROSSROADS;
  strcpy(szMSG, "GOOD LUCK ON YOUR QUEST!");
  // maze directions
@@ -357,7 +357,7 @@ void game_SHOWSTATUS() {
   strcat(szJJ, " A HERMIT,");
  if (ROOMID == ROOM_DANK_CORRIDOR && (strcmp(EXITS[ROOM_DANK_CORRIDOR],"N ")==0))
   strcat(szJJ, " AN OAK DOOR,");
- if (ROOMID == ROOM_SAFE_IN_OGBANS_CHAMBER && FLAGS[68] == 1)
+ if (ROOMID == ROOM_SAFE_IN_OGBANS_CHAMBER && FLAGS[FLAG_OGBANPOISONED] == 1)
   strcat(szJJ, " OGBAN (DEAD),");
  if (*szJJ)
   {
@@ -455,7 +455,7 @@ int game_GETCOMMAND()
    else
     if (VERBID < VERBCOUNT  &&  OBJLOC[OBJID] != 0)
      sprintf(szMSG, "YOU DO NOT HAVE THE %s",szTT);
-   if (ROOMID == ROOM_HUGE_FALLEN_OAK && FLAGS[35] == 0 && VERBID != VERB_BLOW && VERBID != VERB_MAKE)
+   if (ROOMID == ROOM_HUGE_FALLEN_OAK && FLAGS[FLAG_GUARDIANFREE] == 0 && VERBID != VERB_BLOW && VERBID != VERB_MAKE)
     {
      strcpy(szMSG, "THE GHOST OF THE GOBLIN GUARDIAN HAS GOT YOU!"); 
      return 0;
@@ -465,7 +465,7 @@ int game_GETCOMMAND()
      if (VERBID == VERB_HOLD || VERBID == VERB_SHOW || VERBID == VERB_USE || VERBID == VERB_REFLECT || VERBID == VERB_WITH)
       ;
      else
-      if (ROOMID == ROOM_WIZARDS_LAIR && FLAGS[63] == 0)
+      if (ROOMID == ROOM_WIZARDS_LAIR && FLAGS[FLAG_WIZARDGLARE] == 0)
       {
        strcpy(szMSG, "THE WIZARD HAS YOU IN HIS GLARE");
        return 0;
@@ -479,12 +479,13 @@ int game_GETCOMMAND()
       {
        if (ROOMID == ROOM_ROUGH_WATER)
        {
-        FLAGS[67] = FLAGS[67] + 1; if (FLAGS[67] == 10)
+        FLAGS[67] = FLAGS[67] + 1; 
+        if (FLAGS[67] == 10)
         {
          FLAGS[FLAG_YOUAREDEAD] = 1; strcpy(szMSG, "YOU SANK!");;
         };
        }
-       if (ROOMID == ROOM_HUGE_FALLEN_OAK && FLAGS[35] == 0 && OBJLOC[OBJ_REEDS] != 0)
+       if (ROOMID == ROOM_HUGE_FALLEN_OAK && FLAGS[FLAG_GUARDIANFREE] == 0 && OBJLOC[OBJ_REEDS] != 0)
        {
         strcpy(szMSG, "THE GHOST OF THE GOBLIN GUARDIAN GETS YOU!");
         FLAGS[FLAG_YOUAREDEAD] = 1;
@@ -525,7 +526,7 @@ void c_FUNCT_GOTO() {
  }
  if (FLAGS[64] == 1)
   FLAGS[64] = 0;
- if (FLAGS[51] == 1 || FLAGS[FLAG_BOOTSON] == 1)
+ if (FLAGS[FLAG_UNIFORMON] == 1 || FLAGS[FLAG_BOOTSON] == 1)
   ;
  else {
   if (FLAGS[55] == 1) {
@@ -589,7 +590,7 @@ void c_FUNCT_GOTO() {
   strcpy(szMSG, "MYSTERIOUS FORCES HOLD YOU BACK");
   return;
  }
- if (ROOMID == ROOM_MOSAICFLOORED_HALL && DIRID == VERB_SOUTH && FLAGS[68] == 0) {
+ if (ROOMID == ROOM_MOSAICFLOORED_HALL && DIRID == VERB_SOUTH && FLAGS[FLAG_OGBANPOISONED] == 0) {
   strcpy(szMSG, "YOU MET OGBAN!!!");
   FLAGS[FLAG_YOUAREDEAD] = 1;
   return;
@@ -598,16 +599,16 @@ void c_FUNCT_GOTO() {
   strcpy(szMSG, "RATS NIBBLE YOUR ANKLES");
   return;
  }
- if (ROOMID == ROOM_COBWEBBY_ROOM && (DIRID == VERB_NORTH || DIRID == VERB_WEST) && FLAGS[66] == 0) {
+ if (ROOMID == ROOM_COBWEBBY_ROOM && (DIRID == VERB_NORTH || DIRID == VERB_WEST) && FLAGS[FLAG_COBWEBS] == 0) {
   strcpy(szMSG, "YOU GET CAUGHT IN THE COBWEBS!");
   return;
  }
- if (ROOMID == ROOM_WIZARDS_LAIR && DIRID == VERB_WEST && FLAGS[70] == 0) {
+ if (ROOMID == ROOM_WIZARDS_LAIR && DIRID == VERB_WEST && FLAGS[FLAG_WIZARDDOOR] == 0) {
   strcpy(szMSG, "THE DOOR DOES NOT OPEN");
   return;
  }
- if (ROOMID == ROOM_DUSTY_LIBRARY && FLAGS[47] == 1)
-  FLAGS[68] = 1;
+ if (ROOMID == ROOM_DUSTY_LIBRARY && FLAGS[FLAG_POISONINWINE] == 1)
+  FLAGS[FLAG_OGBANPOISONED] = 1;
  if (ROOMID == ROOM_ROW_OF_CASKS && DIRID == VERB_WEST && (strcmp(EXITS[ROOM_ROW_OF_CASKS], "EW ") == 0)) {
   ROOMID = ROOM_SHADY_HOLLOW;
   strcpy(szMSG, "THE PASSAGE WAS STEEP!");
@@ -810,7 +811,7 @@ void c_FUNCT_EXAMINE() {
  if (OBJID == OBJ_PHIAL)
   strcpy(szMSG, "THE LABEL READS 'POISON'");
  if (((ROOMID == ROOM_DUSTY_LIBRARY) && (OBJID == OBJ_BOOKS))) {
-  const char*roomname = ROOMSZ[FLAGS[FLAGS[52] + ROOM_TURRET_ROOM_WITH_A_SLOT_MACHINE]];
+  const char*roomname = ROOMSZ[FLAGS[57+FLAGS[52]]];
   sprintf(szMSG, "MAGIC WORDS LIE AT THE CROSSROADS, THE FOUNTAIN AND THE %s", roomname+2);
  }
  if (((ROOMID == ROOM_BANQUETING_HALL) && (OBJID == OBJ_GRARGS)) && FLAGS[48] == 1) {
@@ -840,7 +841,7 @@ void c_FUNCT_GIVE() {
   strcpy(szMSG, "HE GIVES IT BACK!");
  }
  if (((ROOMID == ROOM_SIDE_OF_A_WOODED_VALLEY) && (OBJID == OBJ_BROOCH))) {
-  sprintf(szMSG, "HE TAKES IT AND SAYS %d RINGS ARE NEEDED'", FLAGS[42]);
+  sprintf(szMSG, "HE TAKES IT AND SAYS %d RINGS ARE NEEDED'", FLAGS[FLAG_RINGNUMBER]);
   OBJLOC[OBJ_BROOCH] = ROOM_NOWHERE;
  }
  if (ROOMID == ROOM_WEST_END_OF_A_BRIDGE || ROOMID == ROOM_EAST_END_OF_A_BRIDGE) {
@@ -932,7 +933,7 @@ void c_FUNCT_WEAR() {
   FLAGS[55] = 0;
  }
  if (OBJID == OBJ_UNIFORM) {
-  FLAGS[51] = 1;
+  FLAGS[FLAG_UNIFORMON] = 1;
   strcpy(szMSG, "YOU ARE DISGUISED");
   FLAGS[55] = 0;
  }
@@ -955,7 +956,7 @@ void c_FUNCT_TIE() {
 }
 
 void c_FUNCT_CLIMB() {
- if (((ROOMID == ROOM_HIGHWALLED_GARDEN) && (OBJID == OBJ_VINE)) && FLAGS[38] == 1) {
+ if (((ROOMID == ROOM_HIGHWALLED_GARDEN) && (OBJID == OBJ_VINE)) && FLAGS[FLAG_GROWNVINE] == 1) {
   strcpy(szMSG, "ALL RIGHT");
   ROOMID = ROOM_INSCRIBED_CAVERN;
  }
@@ -1044,7 +1045,7 @@ void c_FUNCT_OPEN() {
   PRINT("WHAT IS THE CODE");
   CN = INPUTNUM();
   strcpy(szMSG, "WRONG!");
-  if (CN == FLAGS[41]) {
+  if (CN == FLAGS[FLAG_OGBANSAFECODE]) {
    strcpy(szMSG, "IT OPENS");
    FLAGS[OBJ_KEY] = OBJ_STATUS_VISIBLE;
   }
@@ -1090,7 +1091,7 @@ void c_FUNCT_FILL() {
  }
  if (((ROOMID == ROOM_STREAM_IN_A_VALLEY_BOTTOM) && (OBJID == OBJ_JUG)) && OBJLOC[OBJ_JUG] == ROOM_INVENTORY) {
   strcpy(szMSG, "IT IS NOW FULL");
-  FLAGS[34] = 1;
+  FLAGS[FLAG_JUGFILLED] = 1;
  }
  if (((ROOMID == ROOM_STREAM_IN_A_VALLEY_BOTTOM) && (OBJID == OBJ_BUCKET))) {
   strcpy(szMSG, "IT LEAKS OUT!");
@@ -1103,13 +1104,13 @@ void c_FUNCT_PLANT() {
   return;
  }
  strcpy(szMSG, "OK");
- FLAGS[37] = 1;
+ FLAGS[FLAG_SEEDPLANTED] = 1;
 }
 
 void c_FUNCT_WATER() {
- if (OBJID == OBJ_SEEDS && FLAGS[37] == 1 && FLAGS[34] == 1) {
+ if (OBJID == OBJ_SEEDS && FLAGS[FLAG_SEEDPLANTED] == 1 && FLAGS[FLAG_JUGFILLED] == 1) {
   strcpy(szMSG, "A LARGE VINE GROWS IN SECONDS!");
-  FLAGS[38] = 1;
+  FLAGS[FLAG_GROWNVINE] = 1;
  }
 }
 
@@ -1119,7 +1120,7 @@ void c_FUNCT_SWING() {
  }
  if (((ROOMID == ROOM_COBWEBBY_ROOM) && (OBJID == OBJ_SWORD))) {
   strcpy(szMSG, "YOU CLEARED THE COBWEBS");
-  FLAGS[66] = 1;
+  FLAGS[FLAG_COBWEBS] = 1;
  }
  if (((ROOMID == ROOM_DANK_CORRIDOR) && (OBJID == OBJ_AXE))) {
   strcpy(szMSG, "THE DOOR BROKE!");
@@ -1171,9 +1172,9 @@ void c_FUNCT_REMOVE() {
   strcpy(szMSG, "TAKEN OFF");
   FLAGS[FLAG_BOOTSON] = 0;
  }
- if ((OBJID == OBJ_UNIFORM && FLAGS[51] == 1)) {
+ if ((OBJID == OBJ_UNIFORM && FLAGS[FLAG_UNIFORMON] == 1)) {
   strcpy(szMSG, "OK");
-  FLAGS[51] = 0;
+  FLAGS[FLAG_UNIFORMON] = 0;
  }
  if (OBJID == OBJ_BRICKS || OBJID == OBJ_RUBBLE) {
   c_FUNCT_MOVE();
@@ -1181,7 +1182,11 @@ void c_FUNCT_REMOVE() {
 }
 
 void c_FUNCT_FEED() {
- if (((ROOMID == ROOM_WINE_CELLAR) && (OBJID == OBJ_RATS)) || ((ROOMID == ROOM_RUSTY_GATES) && (OBJID == OBJ_PONY)) || ((ROOMID == ROOM_OVERGROWN_TRACK) && (OBJID == OBJ_PONY)) || ((ROOMID == ROOM_BARREN_COUNTRYSIDE) && (OBJID == OBJ_OGBANS_BOAR)) || ((ROOMID == ROOM_HIGH_GLASS_GATES) && (OBJID == OBJ_HOUND)))
+ if (((ROOMID == ROOM_WINE_CELLAR) && (OBJID == OBJ_RATS)) || 
+     ((ROOMID == ROOM_RUSTY_GATES) && (OBJID == OBJ_PONY)) || 
+     ((ROOMID == ROOM_OVERGROWN_TRACK) && (OBJID == OBJ_PONY)) || 
+     ((ROOMID == ROOM_BARREN_COUNTRYSIDE) && (OBJID == OBJ_OGBANS_BOAR)) || 
+     ((ROOMID == ROOM_HIGH_GLASS_GATES) && (OBJID == OBJ_HOUND)))
   strcpy(szMSG, "WITH WHAT?");
 }
 
@@ -1219,9 +1224,9 @@ void c_FUNCT_LEAVE() {
  }
  if (OBJID == OBJ_BOAT && FLAGS[FLAG_SHEETONBOAT] == 1)
   OBJLOC[OBJ_SHEET] = ROOMID;
- if (OBJID == OBJ_JUG && FLAGS[34] == 1) {
+ if (OBJID == OBJ_JUG && FLAGS[FLAG_JUGFILLED] == 1) {
   strcpy(szMSG, "YOU LOST THE WATER!");
-  FLAGS[34] = 0;
+  FLAGS[FLAG_JUGFILLED] = 0;
  }
  if (OBJID == OBJ_SHEET && FLAGS[FLAG_SHEETONBOAT] == 1)
   FLAGS[FLAG_SHEETONBOAT] = 0;
@@ -1232,7 +1237,7 @@ void c_FUNCT_INSERT() {
   strcpy(szMSG, "YOU DO NOT HAVE ANY");
  if (((ROOMID == ROOM_TURRET_ROOM_WITH_A_SLOT_MACHINE) && (OBJID == OBJ_COIN)) && OBJLOC[OBJ_COINS] == ROOM_INVENTORY && FLAGS[FLAG_COINSCOUNT] > 0) {
   FLAGS[FLAG_COINSCOUNT] = FLAGS[FLAG_COINSCOUNT] - 1;
-  sprintf(szMSG, "A NUMBER APPEARS - %d", FLAGS[41]);
+  sprintf(szMSG, "A NUMBER APPEARS - %d", FLAGS[FLAG_OGBANSAFECODE]);
   if (FLAGS[FLAG_COINSCOUNT] == 0)
    OBJLOC[OBJ_COINS] = ROOM_NOWHERE;
  }
@@ -1263,7 +1268,7 @@ void c_FUNCT_MAKE() {
  if (OBJID == OBJ_MUSIC)
   strcpy(szMSG, "HOW, O MUSICAL ONE?");
  if (((ROOMID == ROOM_HUGE_FALLEN_OAK) && (OBJID == OBJ_REEDS))) {
-  FLAGS[35] = 1;
+  FLAGS[FLAG_GUARDIANFREE] = 1;
   strcpy(szMSG, "THE GHOST OF THE GOBLIN GUARDIAN IS FREE");
   strcpy(EXITS[ROOM_HUGE_FALLEN_OAK], "NS");
  }
@@ -1295,7 +1300,7 @@ void c_FUNCT_POISON() {
 void c_FUNCT_INTO() {
  if ((OBJID == OBJ_GOBLET || OBJID == OBJ_WINE) && OBJLOC[OBJ_PHIAL] == ROOM_INVENTORY && ROOMID == ROOM_MOSAICFLOORED_HALL) {
   strcpy(szMSG, "OK");
-  FLAGS[47] = 1;
+  FLAGS[FLAG_POISONINWINE] = 1;
  }
 }
 
@@ -1312,7 +1317,7 @@ void c_FUNCT_RING() {
   else
    break;
  }
- if (MR == FLAGS[42]) {
+ if (MR == FLAGS[FLAG_RINGNUMBER]) {
   strcpy(szMSG, "A ROCK DOOR OPENS");
   strcpy(EXITS[ROOM_SILVER_BELL_IN_THE_ROCK], "EW");
   return;
@@ -1331,7 +1336,7 @@ void c_FUNCT_SHOW() {
 void c_FUNCT_HOLD() {
  if ((((ROOMID == ROOM_WIZARDS_LAIR) && (OBJID == OBJ_UP_SILVER_PLATE)) || ((ROOMID == ROOM_WIZARDS_LAIR) && (OBJID == OBJ_SILVER_PLATE))) && OBJLOC[OBJ_SILVER_PLATE] == ROOM_INVENTORY) {
   strcpy(szMSG, "YOU REFLECTED THE WIZARD'S GLARE! HE IS DEAD");
-  FLAGS[63] = 1;
+  FLAGS[FLAG_WIZARDGLARE] = 1;
  }
  if (OBJID == OBJ_STONE_OF_DESTINY) 
   c_FUNCT_GET(); 
@@ -1348,7 +1353,7 @@ void c_FUNCT_PAY() {
 void c_FUNCT_UNLOCK() {
  if (((ROOMID == ROOM_WIZARDS_LAIR) && (OBJID == OBJ_DOOR)) && OBJLOC[OBJ_KEY] == ROOM_INVENTORY) {
   strcpy(szMSG, "THE KEY TURNS!");
-  FLAGS[70] = 1;
+  FLAGS[FLAG_WIZARDDOOR] = 1;
  }
 }
 
