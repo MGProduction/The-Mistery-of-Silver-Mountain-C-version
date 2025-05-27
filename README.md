@@ -1,4 +1,4 @@
-# The-Mistery-of-Silver-Mountain-C-version-
+# The-Mistery-of-Silver-Mountain-C-version
 This is a C "translation" of *The Mystery of Silver Mountain* (1984), originally written in BASIC by **Chris Oxlade** and **Judy Tatchell** for **Usborne Publishing**.
 
 ```
