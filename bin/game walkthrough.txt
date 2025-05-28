@@ -143,7 +143,6 @@ water seeds
 drop jug
 drop seeds
 climb vine
-#
 read inscriptions # needed for maze
 north
 west
