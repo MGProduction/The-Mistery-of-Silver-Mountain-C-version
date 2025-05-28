@@ -33,5 +33,9 @@ I'm working on a translation (adding graphics and some extra features) of this g
 
 The main difference between readable and unreadable code lies in the use of named constants instead of raw numbers, and in choosing clear, self-explanatory names for variables and functions. So, my work here was fairly straightforward. In this particular case, the original code also used a simple encryption algorithm to obscure some of the in-game strings. I’ve decoded those strings so that everything is now fully understandable.
 
+## Extras
+
+To be sure the game was fully playable I've added a modality to "run" a file with a sequence of passages (i.e. c_silvermountain bin/game_walkthrough.txt) - as did Ben Holland (see later on). This helped me to do some changes in my code (bugfixes) AND to write the game_walkthrough.txt file (created using **Dorothy Millard**'s work) with some minor but needed changes. Playing the walkthrough using the automatic way takes you to the LAST action of the game (when you have to say the last magic word) - so everything should work.
+
 ## References
 I've decided to work on a C translation of the original source code after having seen the great work done by **Ben Holland** (https://github.com/fivegreenapples/go-mountain/tree/main) who did a **Golang** translation. I've worked with his code for a while (deobfuscating it) and I thought it was interesting doing the work of **C** code instead.
