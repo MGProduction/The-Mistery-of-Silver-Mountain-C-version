@@ -1,0 +1,298 @@
+east
+east
+east
+examine chest
+examine pot
+get coins
+get bread
+up
+examine bed
+get sheet
+north
+open cupboard
+get boots
+south
+down
+west
+west
+west
+west
+west
+give coin
+cross bridge
+west
+examine trees
+get apples
+west
+west
+wear boots
+west
+remove boots
+get bucket
+east
+wear boots
+north
+remove boots
+get axe
+north
+west
+get boat
+west
+use sheet
+west
+north
+north
+drop boat
+north
+examine kiln
+get jug
+north
+get reeds
+south
+south
+east
+examine ketch
+get net
+west
+get boat
+south
+south
+use bucket
+south
+east
+drop boat
+drop bucket
+get sheet
+east
+north
+east
+up
+get sacks
+examine sacks
+get seeds
+down
+west
+north
+north
+throw net
+north
+turn wheel
+north
+get lamp
+east
+examine pool
+south
+examine sluice gates
+turn handle
+north
+examine pool
+get shield
+west
+south
+west
+give apple
+north
+read inscriptions
+east
+east
+move rubble
+west
+west
+get bone
+east
+south
+give apple
+east
+south
+south
+south
+south
+east
+east
+fill jug
+south
+east
+give coin
+cross bridge
+east
+east
+north
+examine stones
+west
+west
+north
+blow reeds
+drop reeds
+north
+north
+enter hut
+get planks
+west
+drop planks
+south
+down
+west
+get rope
+east
+north
+up
+north
+north
+plant seeds
+water seeds
+drop jug
+drop seeds
+climb vine
+#
+read inscriptions # needed for maze
+north
+west
+west
+west
+move rubble
+east # use inscriptions in reverse
+east
+east
+south
+north
+east
+give bone
+east
+east
+east
+wear boots
+east
+remove boots
+get sword
+wear boots
+south
+remove boots
+examine kitchens
+open cupboard
+get phial
+examine phial
+south
+get brooch
+north
+west
+south
+examine grargs
+wear boots
+south
+remove boots
+south
+poison wine
+east
+north
+north
+drop boots
+get uniform
+wear uniform
+examine uniform
+north
+east
+north
+west
+west
+south
+swing axe
+south
+south
+west
+light lamp
+west 
+give bread 
+west 
+open casks 
+west 
+east 
+east 
+examine stables 
+examine door 
+get horseshoe
+open door
+burn door
+get horseshoe
+south
+west
+west
+west
+west
+give coin
+cross bridge
+west
+west
+west
+tie sheet
+climb sheet 
+examine well bottom 
+swing axe
+north
+get ring
+east
+south
+east
+north
+east
+give brooch
+west
+north
+north
+north
+north
+west 
+give apple 
+north 
+east
+east 
+east
+east 
+east 
+east
+east 
+west
+south
+west
+south 
+east 
+east 
+ring bell # hermit gave you correct number
+east 
+north
+north
+east
+east
+south 
+west
+south
+south
+south 
+east 
+get silver plate
+north 
+read books 
+south
+west 
+south 
+west 
+west 
+cut cobwebs 
+west 
+insert coin 
+east
+east 
+open safe #code seen inserting coin
+get key
+west
+north 
+west 
+hold up silver plate 
+west 
+unlock door 
+drop key
+west 
+get stone of destiny
+say magic words 
+say awake 
+say guide 
+say #write word based on books info

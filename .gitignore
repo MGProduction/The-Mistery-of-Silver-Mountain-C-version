@@ -60,4 +60,6 @@ x64/
 *.sln
 *.vcxproj*
 
+bin/c_silvermountain.*
+
 .vs/
