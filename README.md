@@ -37,5 +37,15 @@ The main difference between readable and unreadable code lies in the use of name
 
 To be sure the game was fully playable I've added a modality to "run" a file with a sequence of passages (i.e. c_silvermountain bin/game_walkthrough.txt) - as did Ben Holland (see later on). This helped me to do some changes in my code (bugfixes) AND to write the game_walkthrough.txt file (created using **Dorothy Millard**'s work) with some minor but needed changes. Playing the walkthrough using the automatic way takes you to the LAST action of the game (when you have to say the last magic word) - so everything should work.
 
+If you want to reach a specific part of the game you can put a line with just 
+```
+#
+```
+where you want in the walkthrough file, start the game invoking it, wait a few seconds and you'll be able to play from that point forward. You can also write your own walkthrough file - even adding (after the command) a comment starting with # (i.e. 
+```
+examine pot # it's important!
+```
+)
+
 ## References
 I've decided to work on a C translation of the original source code after having seen the great work done by **Ben Holland** (https://github.com/fivegreenapples/go-mountain/tree/main) who did a **Golang** translation. I've worked with his code for a while (deobfuscating it) and I thought it was interesting doing the work of **C** code instead.
